@@ -285,7 +285,7 @@ hr {
     box-shadow: 3px 3px 4px black;
     margin: 5px 10px;
     justify-content: center;
-    display: flex;
+    display: inline-block;
     flex-wrap: wrap;
     gap: 15px;
 }
