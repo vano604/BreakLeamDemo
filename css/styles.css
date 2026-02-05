@@ -295,6 +295,17 @@ hr {
     border-radius: 15px;
 }
 
+.indimg {
+    border: 3px solid rgb(62, 111, 245);
+    border-radius: 15px;
+}
+
+.indb {
+    display: inline-block;
+}
+
+
+
 @media (max-width: 770px) {
 
     [class*="col-"] {

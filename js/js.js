@@ -21,6 +21,8 @@ fetch("https://api.mcstatus.io/v2/status/java/" + ip)
     document.getElementById("status").textContent = "Не удалось получить данные";
   });*/
 
+
+/*
   const ip = "d4.rustix.me:25856"; // вставь IP или домен сервера
 
   // функция для генерации случайного никнейма для головы
@@ -61,7 +63,61 @@ fetch("https://api.mcstatus.io/v2/status/java/" + ip)
   })
   .catch(() => {
     document.getElementById("online").textContent = "Сервер оффлайн";
+  });*/
+
+
+
+  const ip = "d4.rustix.me:25856"; // IP или домен сервера
+
+  // функция для генерации случайного никнейма для головы
+  function getRandomSkinName() {
+    const names = [
+      "Steve", "Alex", "Herobrine", "Notch", "Creeper", "Zombie", 
+      "Skeleton", "Enderman", "Villager", "Ghast", "Spider", "Wolf", "Pig", "Technoblade", "Agera001",
+      "Dragon", "Daquavis"
+    ];
+    return names[Math.floor(Math.random() * names.length)];
+  }
+  
+  fetch("https://api.mcstatus.io/v2/status/java/" + ip)
+  .then(res => res.json())
+  .then(data => {
+    const online = data.players.online || 0;
+    const max = data.players.max || 0;
+    document.getElementById("online").textContent = `Онлайн: ${online} / ${max}`;
+  
+    const playersDiv = document.getElementById("players");
+    playersDiv.innerHTML = ""; // очистка
+  
+    // проверяем есть ли список игроков
+    const list = data.players.list || []; 
+  
+    const count = Math.min(10, online);
+  
+    for (let i = 0; i < count; i++) {
+      const div = document.createElement("div");
+      div.className = "player";
+  
+      const randomSkin = getRandomSkinName();
+  
+      // если ник есть, используем его, иначе fallback
+      const nick = list[i] || `Игрок ${i + 1}`;
+  
+      div.innerHTML = `
+        <img src="https://mc-heads.net/avatar/${randomSkin}/64">
+        <div>${nick}</div>
+      `;
+      playersDiv.appendChild(div);
+    }
+  
+  })
+  .catch(() => {
+    document.getElementById("online").textContent = "Сервер оффлайн";
   });
+  
+
+
+
 
 
   const form = document.getElementById('contactForm');
@@ -112,3 +168,18 @@ checkStream();
 
 // Автообновление каждые 30 секунд
 setInterval(checkStream, 30000);
+
+function checkLogin() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+
+  const correctUser = "admin";
+  const correctPass = "1234";
+
+  if (user === correctUser && pass === correctPass) {
+      document.getElementById("login-box").style.display = "none";
+      document.getElementById("site-content").style.display = "block";
+  } else {
+      document.getElementById("error").textContent = "Неверный логин или пароль!";
+  }
+}
