@@ -218,31 +218,11 @@ function changeAvatar(){
 }
 
 // ---- 10. Добавление отзыва с анти-токсиком ----
-
-// Функция для анти-токсика
-function cleanBadWords(text) {
-    // Разделяем текст на слова, включая знаки после слова
-    return text.split(/(\s+)/).map(word => {
-        // убираем все знаки, чтобы проверить слово
-        const clean = word.toLowerCase().replace(/[^а-яёa-z0-9]/gi, "");
-        if (BAD_WORDS.includes(clean)) {
-            return "*".repeat(word.length); // заменяем на звезды
-        }
-        return word;
-    }).join("");
-}
-
-
 // Добавление отзыва
 function addReview() {
     const input = document.getElementById("reviewInput");
     let text = input.value.trim();
     if (!text) return;
-
-    // анти-токсик только для обычных пользователей
-    if(currentUser.role !== "admin") {
-        text = cleanBadWords(text);
-    }
 
     const review = {
         id: Date.now(),
@@ -264,16 +244,16 @@ function addReview() {
 
 // Показ отзывов
 function showReviews() {
-    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    const reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
     const div = document.getElementById("reviewsList");
     div.innerHTML = "";
 
-    if(reviews.length === 0) {
+    if(reviews.length === 0){
         div.innerHTML = "<p>Пока нет отзывов</p>";
         return;
     }
 
-    reviews.forEach(r => {
+    reviews.forEach(r=>{
         const canDelete = r.name === currentUser.name || (currentUser.role==="admin" && r.role==="user");
         const liked = r.likes.includes(currentUser.name);
         const disliked = r.dislikes.includes(currentUser.name);
@@ -295,14 +275,14 @@ function showReviews() {
             delBtn.style.background="red";
             delBtn.style.color="white";
             delBtn.style.marginLeft="10px";
-            delBtn.onclick = () => deleteReview(r.id);
+            delBtn.onclick = ()=>deleteReview(r.id);
             reviewDiv.appendChild(delBtn);
         }
         div.appendChild(reviewDiv);
     });
 }
 
-// Лайки и дизлайки
+// Лайки/дизлайки
 function toggleLike(id,type){
     let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
     for(let r of reviews){
@@ -331,7 +311,7 @@ function deleteReview(id){
     showReviews();
 }
 
-// Загружаем отзывы при старте
+// Загрузка отзывов при старте
 window.onload = showReviews;
 
 // при загрузке страницы
