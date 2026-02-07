@@ -118,7 +118,7 @@ fetch("https://api.mcstatus.io/v2/status/java/" + ip)
 
 
 
-
+/*
 
   const form = document.getElementById('contactForm');
       
@@ -140,6 +140,8 @@ fetch("https://api.mcstatus.io/v2/status/java/" + ip)
       alert('Ошибка: ' + error.message);
     });
   });
+
+*/
 
 
 const apiKey = "AIzaSyAN7O8Y-qaiy_5-oxUp5cAss-uW_zl0z1I"; // получаем на Google Cloud

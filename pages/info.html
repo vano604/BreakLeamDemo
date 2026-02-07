@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" type="image/png" href="../images/BreakLeam.jpg">
     <title>BreakLeam / Info</title>
+
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 </head>
 <body>
     <header>
-        
         <div onclick="window.location.href='../index.html'"><img class="header-logo" height="100px" src="../images/BreakLeam.jpg" alt="Logo"></div>
         <nav id="navbar" class="nav">
             <div class="nav-links"><a href="../index.html">Главная</a></div>
@@ -19,9 +22,7 @@
             <div class="nav-links"><a href="rules.html">Правила</a></div>
             <div class="nav-links"><a href="otzv.html">Отзывы</a></div>
         </nav>
-
         <a class="hamburger-menu" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
-    
     </header>
 
     <main>
@@ -29,36 +30,41 @@
             <div class="col-5">
                 <h2 class="centered">Сервер:</h2>
                 <hr>
-<div class="serv"><p> граница мира в каждом измерение: <br>
- в обычном мире 5000 на 5000 (будет через 7дней расширяется постепенно) <br>
- в адском мире (закрыт времено) <br>
- в эндер мире (закрыт времено) <br>
- ===== <br>
- версия сервера: от 1.16.5 до 1.21.8 (может выше ядро на 1.21.8) <br>
- айпи сервера: d4.rustix.me:25856 <br>
- ===== <br>
- не скрываем статы хостинга <br>
- 12ядер <br>
- 32гб оперативки <br>
- 1тб памети <br>
- ===== <br>
- вайп 1раз в год ХОСТИНГ КУПИЛ СРАЗУ НА 1ГОД</p></div>
+                <div class="serv">
+                    <p>
+                        граница мира в каждом измерение: <br>
+                        в обычном мире 5000 на 5000 (будет через 7дней расширяется постепенно) <br>
+                        в адском мире (закрыт времено) <br>
+                        в эндер мире (закрыт времено) <br>
+                        ===== <br>
+                        версия сервера: от 1.16.5 до 1.21.8 (может выше ядро на 1.21.8) <br>
+                        айпи сервера: d4.rustix.me:25856 <br>
+                        ===== <br>
+                        не скрываем статы хостинга <br>
+                        12 ядер <br>
+                        32 ГБ оперативки <br>
+                        1 ТБ памяти <br>
+                        ===== <br>
+                        вайп 1 раз в год, хостинг куплен сразу на 1 год
+                    </p>
+                </div>
             </div>
             <div class="col-5">
                 <h2 class="centered">Приваты:</h2>
                 <hr>
-                <div class="serv"><p>
-                    чтоб сделать приват своей теретории на сервере и потом этот <br> нарушитель за вороство ресов получил бан то сделайте так как написана <br>
-                    ===== <br>
-                    1)- поставить табличку с вашим ником <br>
-                    
-                    2)- отметить тереторию (забором построить) или (стену построить) или (бамбук раставить вокруг) <br>
-                    
-                    3)- если на той теретории нету таблички и не отмечено все что отметил в 2пункте то вы можете забрать <br> теру себе или забрать всё с сундука <br>
-                    
-                    4)- и если у вас кто-то украл ресы то вы можете узнать кто /co i <br>
-                    ===== <br>
-                    ЧИТАЙТЕ ЭТА ОЧЕНЬ ВАЖНО</p></div>
+                <div class="serv">
+                    <p>
+                        чтоб сделать приват своей территории на сервере и потом этот <br> 
+                        нарушитель за вороство ресов получил бан, сделайте так как написано: <br>
+                        ===== <br>
+                        1) поставить табличку с вашим ником <br>
+                        2) отметить территорию (забором построить) или (стену построить) или (бамбук расставить вокруг) <br>
+                        3) если на той территории нет таблички и не отмечено всё, что отметил в 2 пункте, то вы можете забрать территорию себе или забрать всё с сундука <br>
+                        4) если кто-то украл ресурсы, то можно узнать кто — /co i <br>
+                        ===== <br>
+                        ЧИТАЙТЕ ЭТО ОЧЕНЬ ВАЖНО
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -66,41 +72,38 @@
 
         <div class="row">
             <div class="col-4">
-                        <div class="form">
-                <h2 class="centered">Отправь тикет:</h2>
-                <hr>
-                <form id="contactForm">
-                    <label for="Ник">Ник: </label> <br>
-                    <input class="input-box" type="text" name="nick" id="nick" required placeholder="YTDenis2305050" minlength="2" maxlength="50"> <br>
-                
-                    <label for="E-mail">E-mail: </label> <br>
-                    <input class="input-box" type="email" name="email" id="email" required placeholder="YTDenis2305050@gmail.com" minlength="10" maxlength="50"> <br>
+                <div class="form">
+                    <h2 class="centered">Отправь тикет:</h2>
+                    <hr>
+                    <form id="contactForm">
+                        <label for="nick">Ник: </label> <br>
+                        <input class="input-box" type="text" name="nick" id="nick" required placeholder="YTDenis2305050" minlength="2" maxlength="50"> <br>
 
-                    <label for="Возраст">Возраст: </label> <br>
-                    <input class="input-box" type="text" name="years" id="years" required placeholder="15" minlength="1" maxlength="2"> <br>
+                        <label for="email">E-mail: </label> <br>
+                        <input class="input-box" type="email" name="email" id="email" required placeholder="YTDenis2305050@gmail.com" minlength="10" maxlength="50"> <br>
 
-                    <label for="Цель">Цель: </label> <br>
-                    <input class="input-box2" type="text" name="message" id="message" required placeholder="Text" minlength="10" maxlength="100"> <br>
+                        <label for="years">Возраст: </label> <br>
+                        <input class="input-box" type="text" name="years" id="years" required placeholder="15" minlength="1" maxlength="2"> <br>
 
-                    <label for="Хобби">Хобби: </label> <br>
-                    <input class="input-box2" type="text" name="messagehobby" id="message" required placeholder="Text" minlength="10" maxlength="100"> <br>
+                        <label for="message">Цель: </label> <br>
+                        <input class="input-box2" type="text" name="message" id="message" required placeholder="Text" minlength="10" maxlength="100"> <br>
 
-                    <label for="ФПС">ФПС: </label> <br>
-                    <input class="input-box" type="text" name="fps" id="fps" required placeholder="360" minlength="1" maxlength="1000"> <br> <br>
-                
-                    <input class="input-submit" type="submit" value="Отправь"> <br>
-                
-                </form>
-                  
+                        <label for="messagehobby">Хобби: </label> <br>
+                        <input class="input-box2" type="text" name="messagehobby" id="messagehobby" required placeholder="Text" minlength="10" maxlength="100"> <br>
+
+                        <label for="fps">ФПС: </label> <br>
+                        <input class="input-box" type="text" name="fps" id="fps" required placeholder="360" minlength="1" maxlength="1000"> <br> <br>
+
+                        <input class="input-submit" type="submit" value="Отправь"> <br>
+                    </form>
+                </div>
             </div>
-            </div>
+
             <div class="col-6">
                 <h2 id="online" class="centered">Загрузка...</h2>
                 <div id="players" class="players centered"></div>
             </div>
         </div>
-
-
     </main>
 
     <footer>
@@ -118,10 +121,55 @@
                 <a href="https://discord.gg/MYZCfp48" target="_blank"><img src="../images/discord.png" alt="Discord" class="social"></a>
             </div>
         </div>
-
     </footer>
 
-    <script src="../js/js.js"></script>
+    <!-- JS -->
+    <script>
+        // Firebase конфиг
+        const firebaseConfig = {
+            apiKey: "AIzaSyDMvJBXUF1Q7Ht_COuisRFiQBJ_4Z39nQ4",
+            authDomain: "ticketbl-abb64.firebaseapp.com",
+            databaseURL: "https://ticketbl-abb64-default-rtdb.firebaseio.com",
+            projectId: "ticketbl-abb64.",
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nick = document.getElementById('nick').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const years = document.getElementById('years').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const messagehobby = document.getElementById('messagehobby').value.trim();
+            const fps = document.getElementById('fps').value.trim();
+
+            if(!nick || !email || !years || !message || !messagehobby || !fps){
+                alert('Пожалуйста, заполните все поля!');
+                return;
+            }
+
+            // Проверка уникальности по email
+            const emailKey = email.replace(/\./g, '_'); // точки заменяем для ключа
+            db.ref('tickets/' + emailKey).get().then(snapshot => {
+                if(snapshot.exists()){
+                    alert('Вы уже отправляли тикет!');
+                } else {
+                    db.ref('tickets/' + emailKey).set({
+                        nick, email, years, message, messagehobby, fps,
+                        created_at: new Date().toISOString()
+                    }).then(() => {
+                        alert('Тикет успешно отправлен!');
+                        form.reset();
+                    }).catch(err => {
+                        alert('Ошибка при отправке: ' + err);
+                    });
+                }
+            });
+        });
+    </script>
+    <script src="../js/js.js"></script>
 </body>
 </html>
