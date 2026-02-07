@@ -7,27 +7,30 @@
 <link rel="stylesheet" href="../css/styles.css">
 <link rel="icon" type="image/png" href="../images/BreakLeam.jpg">
 <title>BreakLeam / Отзывы</title>
+<style>
+/* Минимальные стили для отзывов и кнопок */
+.review { display:flex; align-items:flex-start; margin:10px 0; background:#f3f3f3; padding:10px; border-radius:6px; }
+.review img { width:40px; height:40px; border-radius:50%; margin-right:10px; }
+.review button { margin-right:5px; margin-top:5px; }
+.delete-btn { background:red; color:white; border:none; padding:3px 6px; cursor:pointer; border-radius:3px; }
+</style>
 </head>
 <body>
 
-    <body>
-        <header>
-            
-            <div onclick="window.location.href='index.html'"><img class="header-logo" height="100px" src="../images/BreakLeam.jpg" alt="Logo"></div>
-            <nav id="navbar" class="nav">
-                <div class="nav-links"><a href="../index.html">Главная</a></div>
-                <div class="nav-links"><a href="info.html">Информации</a></div>
-                <div class="nav-links"><a href="yt.html">Ютуберы</a></div>
-                <div class="nav-links"><a href="rules.html">Правила</a></div>
-                <div class="nav-links"><a href="otzv.html" class="active">Отзывы</a></div>
-            </nav>
-    
-            <a class="hamburger-menu" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
-        
-        </header>
-    
-        <main>
-            <!-- Регистрация -->
+<header>
+    <div onclick="window.location.href='index.html'"><img class="header-logo" height="100px" src="../images/BreakLeam.jpg" alt="Logo"></div>
+    <nav id="navbar" class="nav">
+        <div class="nav-links"><a href="../index.html">Главная</a></div>
+        <div class="nav-links"><a href="info.html">Информации</a></div>
+        <div class="nav-links"><a href="yt.html">Ютуберы</a></div>
+        <div class="nav-links"><a href="rules.html">Правила</a></div>
+        <div class="nav-links"><a href="otzv.html" class="active">Отзывы</a></div>
+    </nav>
+    <a class="hamburger-menu" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
+</header>
+
+<main>
+<!-- Регистрация -->
 <div id="registerBox" class="form-box">
 <h2>Регистрация</h2>
 <input type="text" id="regUsername" placeholder="Ваше имя"><br>
@@ -51,56 +54,47 @@
 <div id="reviewBox" class="form-box" style="display:none;">
 <h2>Привет, <span id="userDisplay"></span> <img id="userAvatar" src="" width="40" style="border-radius:50%; vertical-align:middle;"></h2>
 <button onclick="logoutUser()">Выйти</button><br><br>
-<button type="button" onclick="toggleMail()">Письма</button>
+<button type="button" onclick="toggleMail()">Письма</button><br><br>
 
-<textarea id="reviewInput" placeholder="Ваш отзыв"></textarea>
+<textarea id="reviewInput" placeholder="Ваш отзыв"></textarea><br>
 <button onclick="addReview()">Отправить отзыв</button>
+
 <div id="mailBox" style="display:none; margin-top:15px;">
-    <h3>Письма от администраторов</h3>
-    
+    <h3>Письма</h3>
     <div id="mailList"></div>
-    
     <div id="adminMailForm" style="margin-top:10px;">
-        <input type="text" id="mailTo" placeholder="Кому (имя пользователя)">
-        <textarea id="mailInput" placeholder="Текст сообщения"></textarea>
+        <input type="text" id="mailTo" placeholder="Кому (имя пользователя)"><br>
+        <textarea id="mailInput" placeholder="Текст сообщения"></textarea><br>
         <button onclick="sendMail()">Отправить письмо</button>
-        </div>
-    </div>    
+    </div>
+</div>
 </div>
 
 <h2>Отзывы</h2>
 <div id="reviewsList"></div>
-        </main>
-    
-        <footer>
-            <div class="row">
-                <div class="col-5">
-                    <div class="centered footer-info">
-                        <span>Все права защищены. &copy;</span>
-                        <span id="an"> </span>
-                    </div>
-                </div>
-                <div class="col-5 centered">
-                    <h3>Наши соцсети</h3>
-                    <a href="https://t.me/BreakLeam" target="_blank"><img src="../images/tg.png" alt="Telegram" class="social"></a>
-                    <a href="https://t.me/BreakLeam_bot" target="_blank"><img src="../images/tgbot.png" alt="TelegramBot" class="socialb"></a>
-                    <a href="https://discord.gg/MYZCfp48" target="_blank"><img src="../images/discord.png" alt="Discord" class="social"></a>
-                </div>
+
+</main>
+
+<footer>
+    <div class="row">
+        <div class="col-5">
+            <div class="centered footer-info">
+                <span>Все права защищены. &copy;</span>
             </div>
-    
-        </footer>
-    
-        <script src="../js/js.js"></script>
-    
-    </body>
+        </div>
+        <div class="col-5 centered">
+            <h3>Наши соцсети</h3>
+            <a href="https://t.me/BreakLeam" target="_blank"><img src="../images/tg.png" alt="Telegram" class="social"></a>
+            <a href="https://t.me/BreakLeam_bot" target="_blank"><img src="../images/tgbot.png" alt="TelegramBot" class="socialb"></a>
+            <a href="https://discord.gg/MYZCfp48" target="_blank"><img src="../images/discord.png" alt="Discord" class="social"></a>
+        </div>
+    </div>
+</footer>
 
-<div class="container">
-
-
+<script src="../js/js.js"></script>
 
 <script>
-// ---- 1. Список админов и всех пользователей ----
-// Администраторов задаём прямо в коде
+// ---- 1. Админы ----
 let predefinedUsers = [
     {name:"Vanovich667_ADM", password:"15fev1215fev12", avatar:"https://static.vecteezy.com/system/resources/thumbnails/019/194/935/small_2x/global-admin-icon-color-outline-vector.jpg", role:"admin"},
     {name:"Lank32123_ADM", password:"Lankadmin12gs2", avatar:"https://static.vecteezy.com/system/resources/thumbnails/019/194/935/small_2x/global-admin-icon-color-outline-vector.jpg", role:"admin"}
@@ -109,22 +103,12 @@ let predefinedUsers = [
 // ---- 2. Пользователи ----
 let users = JSON.parse(localStorage.getItem('users') || "[]");
 for(let u of predefinedUsers){
-    if(!users.some(user => user.name === u.name)){
-        users.push(u);
-    }
+    if(!users.some(user => user.name===u.name)) users.push(u);
 }
 localStorage.setItem('users', JSON.stringify(users));
-
 let currentUser = JSON.parse(localStorage.getItem('currentUser') || "null");
 
-// ---- 3. Плохие слова ----
-const BAD_WORDS = [
-    "хуй",
-    "пизда"
-
-];
-
-// ---- 4. Переключение форм ----
+// ---- 3. Переключение форм ----
 function showLoginBox(){
     document.getElementById('registerBox').style.display='none';
     document.getElementById('loginBox').style.display='block';
@@ -136,116 +120,73 @@ function showRegisterBox(){
     document.getElementById('reviewBox').style.display='none';
 }
 
-// ---- 5. Регистрация ----
+// ---- 4. Регистрация ----
 function registerUser(){
-    const name = document.getElementById('regUsername').value.trim();
-    const pass1 = document.getElementById('regPassword').value;
-    const pass2 = document.getElementById('regPassword2').value;
-    const fileInput = document.getElementById('regAvatar');
+    const name=document.getElementById('regUsername').value.trim();
+    const pass1=document.getElementById('regPassword').value;
+    const pass2=document.getElementById('regPassword2').value;
+    const fileInput=document.getElementById('regAvatar');
 
     if(!name || !pass1 || !pass2) return alert("Заполните все поля");
-    if(pass1 !== pass2) return alert("Пароли не совпадают");
-    if(users.some(u => u.name === name)) return alert("Пользователь с таким именем уже существует");
+    if(pass1!==pass2) return alert("Пароли не совпадают");
+    if(users.some(u=>u.name===name)) return alert("Пользователь с таким именем уже существует");
     if(!fileInput.files[0]) return alert("Выберите аватар");
 
     const reader = new FileReader();
-    reader.onload = function(e){
-        const avatarBase64 = e.target.result;
-        const newUser = {name:name, password:pass1, avatar:avatarBase64, role:"user"};
+    reader.onload=function(e){
+        const avatarBase64=e.target.result;
+        const newUser={name:name,password:pass1,avatar:avatarBase64,role:"user"};
         users.push(newUser);
-        localStorage.setItem('users', JSON.stringify(users));
-        currentUser = newUser;
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        localStorage.setItem('users',JSON.stringify(users));
+        currentUser=newUser;
+        localStorage.setItem('currentUser',JSON.stringify(currentUser));
         showReviewBox();
     }
     reader.readAsDataURL(fileInput.files[0]);
 }
 
-// ---- 6. Вход ----
+// ---- 5. Вход ----
 function loginUser(){
-    const name = document.getElementById('loginUsername').value.trim();
-    const pass = document.getElementById('loginPassword').value;
-
-    const user = users.find(u => u.name === name && u.password === pass);
+    const name=document.getElementById('loginUsername').value.trim();
+    const pass=document.getElementById('loginPassword').value;
+    const user=users.find(u=>u.name===name && u.password===pass);
     if(!user) return alert("Неверное имя или пароль");
-
-    currentUser = user;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    currentUser=user;
+    localStorage.setItem('currentUser',JSON.stringify(currentUser));
     showReviewBox();
 }
 
-// ---- 7. Выход ----
+// ---- 6. Выход ----
 function logoutUser(){
-    currentUser = null;
+    currentUser=null;
     localStorage.removeItem('currentUser');
     showLoginBox();
 }
 
-// ---- 8. Показ формы отзывов ----
+// ---- 7. Форма отзывов ----
 function showReviewBox(){
     document.getElementById('registerBox').style.display='none';
     document.getElementById('loginBox').style.display='none';
     document.getElementById('reviewBox').style.display='block';
-    document.getElementById('userDisplay').innerText = currentUser.name;
-    document.getElementById('userAvatar').src = currentUser.avatar;
-
-    document.getElementById('changeAvatarBtn').style.display = currentUser.role === "user" ? "inline-block" : "none";
+    document.getElementById('userDisplay').innerText=currentUser.name;
+    document.getElementById('userAvatar').src=currentUser.avatar;
     showReviews();
+    showMail();
 }
 
-// ---- 9. Изменение аватара (только user) ----
-function changeAvatar(){
-    if(currentUser.role !== "user") return;
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = e => {
-        const file = e.target.files[0];
-        if(!file) return;
-        const reader = new FileReader();
-        reader.onload = function(ev){
-            currentUser.avatar = ev.target.result;
-            const idx = users.findIndex(u => u.name === currentUser.name);
-            users[idx].avatar = currentUser.avatar;
-            localStorage.setItem('users', JSON.stringify(users));
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            document.getElementById('userAvatar').src = currentUser.avatar;
-            showReviews();
-        }
-        reader.readAsDataURL(file);
-    }
-    input.click();
-}
-
-// ---- 10. Добавление отзыва
-// Добавление отзыва
-// Пример текущего пользователя (в реальном проекте меняется при входе)
-
-// Добавление отзыва
-function addReview() {
-    const input = document.getElementById("reviewInput");
-    let text = input.value.trim();
+// ---- 8. Добавление отзыва ----
+function addReview(){
+    const input=document.getElementById("reviewInput");
+    const text=input.value.trim();
     if(!text) return;
-
-    const review = {
-        id: Date.now(),
-        name: currentUser.name,
-        avatar: currentUser.avatar,
-        text: text,
-        likes: [],
-        dislikes: [],
-        role: currentUser.role
-    };
-
-    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
-    reviews.push(review);
-    localStorage.setItem("reviews", JSON.stringify(reviews));
-
-    input.value = "";
+    let reviews=JSON.parse(localStorage.getItem("reviews")||"[]");
+    reviews.push({id:Date.now(),name:currentUser.name,avatar:currentUser.avatar,text:text,likes:[],dislikes:[],role:currentUser.role});
+    localStorage.setItem("reviews",JSON.stringify(reviews));
+    input.value="";
     showReviews();
 }
 
-// Показ отзывов
+// ---- 9. Показ отзывов ----
 function showReviews() {
     let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
     const div = document.getElementById("reviewsList");
@@ -256,212 +197,137 @@ function showReviews() {
         return;
     }
 
-    reviews.forEach(r=>{
-        const canDelete = r.name===currentUser.name || (currentUser.role==="admin" && r.role==="user");
+    reviews.forEach(r => {
+        const canDelete = r.name === currentUser.name || (currentUser.role === "admin" && r.role === "user");
         const liked = r.likes.includes(currentUser.name);
         const disliked = r.dislikes.includes(currentUser.name);
 
         const reviewDiv = document.createElement("div");
         reviewDiv.className = "review";
-        reviewDiv.innerHTML = `
-            <img src="${r.avatar}">
-            <b>${r.name}:</b> ${r.text}<br>
-            <button onclick="toggleLike(${r.id}, 'like')" style="background:${liked?'#8f8':'#eee'}">👍 ${r.likes.length}</button>
-            <button onclick="toggleLike(${r.id}, 'dislike')" style="background:${disliked?'#f88':'#eee'}">👎 ${r.dislikes.length}</button>
+
+        // Верхняя строка: аватар + имя + текст
+        const topDiv = document.createElement("div");
+        topDiv.className = "review-top";
+        topDiv.innerHTML = `
+            <img src="${r.avatar}" alt="avatar">
+            <div class="review-text"><b>${r.name}:</b> ${r.text}</div>
         `;
+        reviewDiv.appendChild(topDiv);
+
+        // Нижняя строка: кнопки
+        const bottomDiv = document.createElement("div");
+        bottomDiv.className = "review-bottom";
+
+        const likeBtn = document.createElement("button");
+        likeBtn.textContent = `👍 ${r.likes.length}`;
+        likeBtn.style.background = liked ? "#8f8" : "#eee";
+        likeBtn.onclick = () => toggleLike(r.id, "like");
+
+        const dislikeBtn = document.createElement("button");
+        dislikeBtn.textContent = `👎 ${r.dislikes.length}`;
+        dislikeBtn.style.background = disliked ? "#f88" : "#eee";
+        dislikeBtn.onclick = () => toggleLike(r.id, "dislike");
+
+        bottomDiv.appendChild(likeBtn);
+        bottomDiv.appendChild(dislikeBtn);
+
         if(canDelete){
             const delBtn = document.createElement("button");
             delBtn.textContent = "Удалить";
-            delBtn.style.background="red";
-            delBtn.style.color="white";
-            delBtn.onclick = ()=>deleteReview(r.id);
-            reviewDiv.appendChild(delBtn);
+            delBtn.style.background = "red";
+            delBtn.style.color = "white";
+            delBtn.onclick = () => deleteReview(r.id);
+            bottomDiv.appendChild(delBtn);
         }
+
+        reviewDiv.appendChild(bottomDiv);
         div.appendChild(reviewDiv);
     });
 }
 
-// Лайки и дизлайки
+
+
+// ---- 10. Лайки/дизлайки ----
 function toggleLike(id,type){
-    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    let reviews=JSON.parse(localStorage.getItem("reviews")||"[]");
     for(let r of reviews){
         if(r.id===id){
-            if(type==="like"){
-                r.dislikes = r.dislikes.filter(u=>u!==currentUser.name);
-                if(r.likes.includes(currentUser.name)) r.likes = r.likes.filter(u=>u!==currentUser.name);
+            if(type==="like"){ r.dislikes=r.dislikes.filter(u=>u!==currentUser.name);
+                if(r.likes.includes(currentUser.name)) r.likes=r.likes.filter(u=>u!==currentUser.name);
                 else r.likes.push(currentUser.name);
             }
-            if(type==="dislike"){
-                r.likes = r.likes.filter(u=>u!==currentUser.name);
-                if(r.dislikes.includes(currentUser.name)) r.dislikes = r.dislikes.filter(u=>u!==currentUser.name);
+            if(type==="dislike"){ r.likes=r.likes.filter(u=>u!==currentUser.name);
+                if(r.dislikes.includes(currentUser.name)) r.dislikes=r.dislikes.filter(u=>u!==currentUser.name);
                 else r.dislikes.push(currentUser.name);
             }
         }
     }
-    localStorage.setItem("reviews", JSON.stringify(reviews));
+    localStorage.setItem("reviews",JSON.stringify(reviews));
     showReviews();
 }
 
-// Удаление
+// ---- 11. Удаление ----
 function deleteReview(id){
-    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
-    reviews = reviews.filter(r=>!(r.id===id && (r.name===currentUser.name || (currentUser.role==="admin" && r.role==="user"))));
-    localStorage.setItem("reviews", JSON.stringify(reviews));
+    let reviews=JSON.parse(localStorage.getItem("reviews")||"[]");
+    reviews=reviews.filter(r=>!(r.id===id && (r.name===currentUser.name || (currentUser.role==="admin" && r.role==="user"))));
+    localStorage.setItem("reviews",JSON.stringify(reviews));
     showReviews();
 }
 
-// Загружаем отзывы при старте
-window.onload = showReviews;
-
-// при загрузке страницы
-window.onload = function() {
-    if(currentUser) {
-        document.getElementById('reviewBox').style.display='block';
-        document.getElementById('userDisplay').innerText = currentUser.name;
-        document.getElementById('userAvatar').src = currentUser.avatar;
-    }
-    showReviews();
-}
-
-
-
-// ---- 13. Автоматически показываем форму, если пользователь уже вошёл ----
-if(currentUser) showReviewBox();
-
+// ---- 12. Письма ----
 function toggleMail(){
-    const box = document.getElementById("mailBox");
-    box.style.display = box.style.display === "none" ? "block" : "none";
+    const box=document.getElementById("mailBox");
+    box.style.display=(box.style.display==="none"?"block":"none");
     showMail();
 }
-
 function sendMail(){
-    if(currentUser.role !== "admin") return;
-
-    let to = document.getElementById("mailTo").value.trim();
-    let text = document.getElementById("mailInput").value.trim();
-
+    if(currentUser.role!=="admin") return;
+    const to=document.getElementById("mailTo").value.trim();
+    const text=document.getElementById("mailInput").value.trim();
     if(!to || !text) return alert("Заполни текст и получателя");
-
-    if(!users.some(u => u.name === to)) return alert("Такого пользователя нет");
-
-    let mails = JSON.parse(localStorage.getItem("mails") || "[]");
-
-    mails.push({
-        id: Date.now(),
-        from: currentUser.name,
-        to: to,
-        text: text
-    });
-
-    localStorage.setItem("mails", JSON.stringify(mails));
-
-    document.getElementById("mailTo").value = "";
-    document.getElementById("mailInput").value = "";
-
+    if(!users.some(u=>u.name===to)) return alert("Такого пользователя нет");
+    let mails=JSON.parse(localStorage.getItem("mails")||"[]");
+    mails.push({id:Date.now(),from:currentUser.name,to:to,text:text});
+    localStorage.setItem("mails",JSON.stringify(mails));
+    document.getElementById("mailTo").value="";
+    document.getElementById("mailInput").value="";
     showMail();
 }
-
 function showMail(){
-    const mails = JSON.parse(localStorage.getItem("mails") || "[]");
-    const list = document.getElementById("mailList");
-
-    let visible = [];
-
-    if(currentUser.role === "admin"){
-        visible = mails; // админы видят все письма
-    } else {
-        visible = mails.filter(m => m.to === currentUser.name); // пользователи только свои
-    }
-
-    list.innerHTML = ""; // очищаем перед отрисовкой
-
-    if(visible.length === 0){
-        list.innerHTML = "<p>Писем нет</p>";
-        return;
-    }
-
-    for(let m of visible){
-        const div = document.createElement("div");
-        div.style.background = "#eee";
-        div.style.padding = "8px";
-        div.style.marginBottom = "6px";
-        div.style.borderRadius = "6px";
-
-        // кнопка удалить только если админ и отправитель письма — текущий админ
-        let deleteBtn = "";
-        if(currentUser.role === "admin" && m.from === currentUser.name){
-            deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Удалить";
-            deleteBtn.style.background = "red";
-            deleteBtn.style.color = "white";
-            deleteBtn.style.marginLeft = "10px";
-            deleteBtn.onclick = () => deleteMail(m.id);
-            div.appendChild(deleteBtn);
+    const mails=JSON.parse(localStorage.getItem("mails")||"[]");
+    const list=document.getElementById("mailList");
+    list.innerHTML="";
+    let visible=[];
+    if(currentUser.role==="admin") visible=mails;
+    else visible=mails.filter(m=>m.to===currentUser.name);
+    if(visible.length===0){ list.innerHTML="<p>Писем нет</p>"; return; }
+    visible.forEach(m=>{
+        const div=document.createElement("div");
+        div.style.background="#eee"; div.style.padding="8px"; div.style.marginBottom="6px"; div.style.borderRadius="6px";
+        div.innerHTML=`<b>${m.from} → ${m.to}</b><br>${m.text}`;
+        if(currentUser.role==="admin" && m.from===currentUser.name){
+            const delBtn=document.createElement("button");
+            delBtn.textContent="Удалить"; delBtn.style.background="red"; delBtn.style.color="white"; delBtn.style.marginLeft="10px";
+            delBtn.onclick=()=>deleteMail(m.id); div.appendChild(delBtn);
         }
-
-        // содержимое письма
-        const content = document.createElement("div");
-        content.innerHTML = `<b>${m.from} → ${m.to}</b><br>${m.text}`;
-        div.insertBefore(content, div.firstChild);
-
         list.appendChild(div);
-    }
-
-    // форма отправки письма только для админов
-    document.getElementById("adminMailForm").style.display =
-        currentUser.role === "admin" ? "block" : "none";
+    });
+    document.getElementById("adminMailForm").style.display=currentUser.role==="admin"?"block":"none";
 }
-
-
 function deleteMail(id){
-    let mails = JSON.parse(localStorage.getItem("mails") || "[]");
-
-    // оставляем только письма, где id не совпадает или письмо отправлено другим админом
-    mails = mails.filter(m => m.id !== id || m.from !== currentUser.name);
-
-    localStorage.setItem("mails", JSON.stringify(mails));
+    let mails=JSON.parse(localStorage.getItem("mails")||"[]");
+    mails=mails.filter(m=>m.id!==id || m.from!==currentUser.name);
+    localStorage.setItem("mails",JSON.stringify(mails));
     showMail();
 }
 
-function toggleLike(reviewId, type){
-    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
-
-    for(let r of reviews){
-        if(r.id === reviewId){
-            // убираем противоположную реакцию
-            if(type === "like"){
-                r.dislikes = r.dislikes.filter(u => u !== currentUser.name);
-                if(r.likes.includes(currentUser.name)){
-                    r.likes = r.likes.filter(u => u !== currentUser.name);
-                } else {
-                    r.likes.push(currentUser.name);
-                }
-            }
-
-            if(type === "dislike"){
-                r.likes = r.likes.filter(u => u !== currentUser.name);
-                if(r.dislikes.includes(currentUser.name)){
-                    r.dislikes = r.dislikes.filter(u => u !== currentUser.name);
-                } else {
-                    r.dislikes.push(currentUser.name);
-                }
-            }
-        }
-    }
-
-    localStorage.setItem("reviews", JSON.stringify(reviews));
-    showReviews();
-}
-
-if(currentUser){
-    showReviewBox();
-} else {
-    showLoginBox();
-}
-
+// ---- 13. Авто отображение ----
+window.onload=function(){
+    if(currentUser) showReviewBox();
+    else showLoginBox();
+};
 
 </script>
 
-</div>
 </body>
 </html>
