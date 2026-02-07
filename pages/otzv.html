@@ -118,7 +118,11 @@ localStorage.setItem('users', JSON.stringify(users));
 let currentUser = JSON.parse(localStorage.getItem('currentUser') || "null");
 
 // ---- 3. Плохие слова ----
-const bannedWords = ["хуй","Хуй","сука", "Сука", "бля", "Бля", "блять", "Блять", "хуи", "Хуи", "ебать", "Ебать", "уёбише", "Уёбише", "ахуй", "Ахуй", "", "", "", "", "", "", "", "", "", ""];
+const BAD_WORDS = [
+    "хуй",
+    "пизда"
+
+];
 
 // ---- 4. Переключение форм ----
 function showLoginBox(){
@@ -214,53 +218,133 @@ function changeAvatar(){
 }
 
 // ---- 10. Добавление отзыва с анти-токсиком ----
-function addReview(){
-    let text = document.getElementById('reviewInput').value.trim();
-    if(!text) return alert("Введите отзыв");
 
-    if(currentUser.role !== "admin"){
-        for(let word of bannedWords){
-            const re = new RegExp(word, "gi");
-            text = text.replace(re, "*".repeat(word.length));
+// Функция для анти-токсика
+function cleanBadWords(text) {
+    // Разделяем текст на слова, включая знаки после слова
+    return text.split(/(\s+)/).map(word => {
+        // убираем все знаки, чтобы проверить слово
+        const clean = word.toLowerCase().replace(/[^а-яёa-z0-9]/gi, "");
+        if (BAD_WORDS.includes(clean)) {
+            return "*".repeat(word.length); // заменяем на звезды
         }
+        return word;
+    }).join("");
+}
+
+
+// Добавление отзыва
+function addReview() {
+    const input = document.getElementById("reviewInput");
+    let text = input.value.trim();
+    if (!text) return;
+
+    // анти-токсик только для обычных пользователей
+    if(currentUser.role !== "admin") {
+        text = cleanBadWords(text);
     }
 
-    let reviews = JSON.parse(localStorage.getItem('reviews') || "[]");
-    reviews.push({id: Date.now(), name:currentUser.name, avatar:currentUser.avatar, text:text, role:currentUser.role});
-    localStorage.setItem('reviews', JSON.stringify(reviews));
-    document.getElementById('reviewInput').value='';
+    const review = {
+        id: Date.now(),
+        name: currentUser.name,
+        avatar: currentUser.avatar,
+        text: text,
+        likes: [],
+        dislikes: [],
+        role: currentUser.role
+    };
+
+    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    reviews.push(review);
+    localStorage.setItem("reviews", JSON.stringify(reviews));
+
+    input.value = "";
     showReviews();
 }
 
-// ---- 11. Удаление отзывов ----
-function deleteReview(id){
-    let reviews = JSON.parse(localStorage.getItem('reviews') || "[]");
-    reviews = reviews.filter(r => {
-        if(r.id !== id) return true;
-        if(r.name === currentUser.name) return false;
-        if(currentUser.role === "admin" && r.role === "user") return false;
-        return true;
+// Показ отзывов
+function showReviews() {
+    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    const div = document.getElementById("reviewsList");
+    div.innerHTML = "";
+
+    if(reviews.length === 0) {
+        div.innerHTML = "<p>Пока нет отзывов</p>";
+        return;
+    }
+
+    reviews.forEach(r => {
+        const canDelete = r.name === currentUser.name || (currentUser.role==="admin" && r.role==="user");
+        const liked = r.likes.includes(currentUser.name);
+        const disliked = r.dislikes.includes(currentUser.name);
+
+        const reviewDiv = document.createElement("div");
+        reviewDiv.style.border="1px solid #ccc";
+        reviewDiv.style.padding="6px";
+        reviewDiv.style.marginBottom="6px";
+        reviewDiv.style.borderRadius="6px";
+        reviewDiv.innerHTML = `
+            <img src="${r.avatar}" style="width:40px;height:40px;border-radius:50%;vertical-align:middle;margin-right:6px;">
+            <b>${r.name}:</b> ${r.text}<br>
+            <button onclick="toggleLike(${r.id}, 'like')" style="background:${liked?'#8f8':'#eee'}">👍 ${r.likes.length}</button>
+            <button onclick="toggleLike(${r.id}, 'dislike')" style="background:${disliked?'#f88':'#eee'}">👎 ${r.dislikes.length}</button>
+        `;
+        if(canDelete){
+            const delBtn = document.createElement("button");
+            delBtn.textContent = "Удалить";
+            delBtn.style.background="red";
+            delBtn.style.color="white";
+            delBtn.style.marginLeft="10px";
+            delBtn.onclick = () => deleteReview(r.id);
+            reviewDiv.appendChild(delBtn);
+        }
+        div.appendChild(reviewDiv);
     });
-    localStorage.setItem('reviews', JSON.stringify(reviews));
+}
+
+// Лайки и дизлайки
+function toggleLike(id,type){
+    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    for(let r of reviews){
+        if(r.id === id){
+            if(type==="like"){
+                r.dislikes = r.dislikes.filter(u=>u!==currentUser.name);
+                if(r.likes.includes(currentUser.name)) r.likes = r.likes.filter(u=>u!==currentUser.name);
+                else r.likes.push(currentUser.name);
+            }
+            if(type==="dislike"){
+                r.likes = r.likes.filter(u=>u!==currentUser.name);
+                if(r.dislikes.includes(currentUser.name)) r.dislikes = r.dislikes.filter(u=>u!==currentUser.name);
+                else r.dislikes.push(currentUser.name);
+            }
+        }
+    }
+    localStorage.setItem("reviews", JSON.stringify(reviews));
     showReviews();
 }
 
-// ---- 12. Показ отзывов ----
-function showReviews(){
-    const reviews = JSON.parse(localStorage.getItem('reviews') || "[]");
-    const div = document.getElementById('reviewsList');
-    if(reviews.length === 0){ div.innerHTML="<p>Пока нет отзывов</p>"; return; }
-
-    div.innerHTML = reviews.map(r=>{
-        let canDelete = (r.name===currentUser.name) || (currentUser.role==="admin" && r.role==="user");
-        return `
-        <div class="review">
-            <img src="${r.avatar}">
-            <b>${r.name}:</b> ${r.text}
-            ${canDelete ? `<button class="delete-btn" onclick="deleteReview(${r.id})">Удалить</button>` : ""}
-        </div>`;
-    }).join('');
+// Удаление
+function deleteReview(id){
+    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    reviews = reviews.filter(r => !(r.id===id && (r.name===currentUser.name || (currentUser.role==="admin" && r.role==="user"))));
+    localStorage.setItem("reviews", JSON.stringify(reviews));
+    showReviews();
 }
+
+// Загружаем отзывы при старте
+window.onload = showReviews;
+
+// при загрузке страницы
+window.onload = function() {
+    if(currentUser) {
+        document.getElementById('reviewBox').style.display='block';
+        document.getElementById('userDisplay').innerText = currentUser.name;
+        document.getElementById('userAvatar').src = currentUser.avatar;
+    }
+    showReviews();
+}
+
+
 
 // ---- 13. Автоматически показываем форму, если пользователь уже вошёл ----
 if(currentUser) showReviewBox();
@@ -358,6 +442,42 @@ function deleteMail(id){
 
     localStorage.setItem("mails", JSON.stringify(mails));
     showMail();
+}
+
+function toggleLike(reviewId, type){
+    let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+
+    for(let r of reviews){
+        if(r.id === reviewId){
+            // убираем противоположную реакцию
+            if(type === "like"){
+                r.dislikes = r.dislikes.filter(u => u !== currentUser.name);
+                if(r.likes.includes(currentUser.name)){
+                    r.likes = r.likes.filter(u => u !== currentUser.name);
+                } else {
+                    r.likes.push(currentUser.name);
+                }
+            }
+
+            if(type === "dislike"){
+                r.likes = r.likes.filter(u => u !== currentUser.name);
+                if(r.dislikes.includes(currentUser.name)){
+                    r.dislikes = r.dislikes.filter(u => u !== currentUser.name);
+                } else {
+                    r.dislikes.push(currentUser.name);
+                }
+            }
+        }
+    }
+
+    localStorage.setItem("reviews", JSON.stringify(reviews));
+    showReviews();
+}
+
+if(currentUser){
+    showReviewBox();
+} else {
+    showLoginBox();
 }
 
 
